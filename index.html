@@ -220,10 +220,8 @@
           // console.log(resultCalculate);
 
           // Sends messages on behalf of the user to the chat screen where the LIFF app is opened.
-          if (
-            liff.getContext().type !== "none" &&
-            liff.getContext().type !== "external"
-          ) {
+          if (liff.getContext().type !== "none" && liff.getContext().type !== "external") {
+            alert('About to send message');
             // Create flex message
             let message = createFlexMessage(
               carYear,
