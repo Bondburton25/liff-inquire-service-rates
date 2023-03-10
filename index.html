@@ -218,10 +218,10 @@
           // Calculation installment payment
           let resultCalculate = paymentCalculate(carYear, loan, customerType);
           // console.log(resultCalculate);
-          alert('About to send message');
+
           // Sends messages on behalf of the user to the chat screen where the LIFF app is opened.
           if (liff.getContext().type !== "none" && liff.getContext().type !== "external") {
-            // alert('About to send message');
+            alert('I am here');
             // Create flex message
             let message = createFlexMessage(
               carYear,
