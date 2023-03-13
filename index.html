@@ -159,7 +159,6 @@
           createResultTable(airConditionerType, btu, quantity, yearlyPrice, pricePerUnit, totalPrice);
           }
         }
-        // createResultTable(airConditionerType, btu, quantity, yearlyPrice, pricePerUnit, totalPrice);
       }
 
       // Function to get get form values
@@ -390,18 +389,97 @@
                   ],
                 },
                 {
-                  type: "separator",
-                  margin: "lg",
+                  type: "box",
+                  layout: "horizontal",
+                  contents: [
+                    {
+                      type: "box",
+                      layout: "vertical",
+                      contents: [
+                        {
+                          type: "text",
+                          text: "จำนวนเครื่อง",
+                          size: "sm",
+                        },
+                      ],
+                      width: "110px",
+                    },
+                    {
+                      type: "box",
+                      layout: "vertical",
+                      contents: [
+                        {
+                          type: "text",
+                          text: `${numberToString(quantity)} เครื่อง`,
+                          size: "sm",
+                          align: "end",
+                          weight: "bold",
+                        },
+                      ],
+                    },
+                  ],
                 },
                 {
-                  type: "text",
-                  text: "หมายเหตุ",
-                  size: "xxs",
-                  weight: "bold",
-                  margin: "lg",
-                  align: "center",
-                  color: "#e8505b",
-                  wrap: true,
+                  type: "box",
+                  layout: "horizontal",
+                  contents: [
+                    {
+                      type: "box",
+                      layout: "vertical",
+                      contents: [
+                        {
+                          type: "text",
+                          text: "ราคารายครั้ง",
+                          size: "sm",
+                        },
+                      ],
+                      width: "110px",
+                    },
+                    {
+                      type: "box",
+                      layout: "vertical",
+                      contents: [
+                        {
+                          type: "text",
+                          text: `${numberToString(pricePerUnit)} บาท`,
+                          size: "sm",
+                          align: "end",
+                          weight: "bold",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: "box",
+                  layout: "horizontal",
+                  contents: [
+                    {
+                      type: "box",
+                      layout: "vertical",
+                      contents: [
+                        {
+                          type: "text",
+                          text: "ราคารวม",
+                          size: "sm",
+                        },
+                      ],
+                      width: "110px",
+                    },
+                    {
+                      type: "box",
+                      layout: "vertical",
+                      contents: [
+                        {
+                          type: "text",
+                          text: `${numberToString(totalPrice)} บาท`,
+                          size: "sm",
+                          align: "end",
+                          weight: "bold",
+                        },
+                      ],
+                    },
+                  ],
                 },
               ],
               spacing: "md",
