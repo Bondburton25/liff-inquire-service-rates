@@ -45,34 +45,41 @@
       <!-- Start Form Content -->
       <div class="row">
         <form id="form" class="col s12" autocomplete="off">
-          <!-- <p>
-            <label>
-              <input class="with-gap" name="airConditionerSystem" type="radio" value="normal" checked/>
-              <span style="margin-right: 24px">ธรรมดา</span>
-            </label>
-            <label>
-              <input class="with-gap" name="airConditionerSystem" value="VRV" type="radio" />
-              <span>ระบบ VRV</span>
-            </label>
-          </p> -->
-
-          <label><h6>ชนิดแอร์</h6></label>
-          <select id="airConditionerType" class="browser-default" required class="validate">
-            <option value="" disabled selected>กรุณาเลือกชนิดแอร์</option>
-            <option value="Wall Type">Wall Type</option>
-            <option value="Cassette Type">Cassette Type</option>
-            <option value="Ceiling Type">Ceiling Type</option>
-            <option value="Duct Type">Duct Type</option>
-            <option value="Floor Standing Duct Type">Floor Standing Duct Type</option>
-            <option value="CDU">CDU (เฉพาะVRV)</option>
-          </select>
-          <div class="input-field">
-            <label for="btu"><h6>ขนาด BTU</h6></label>
-            <input id="btu" type="text" required="" class="validate valid" value="">
+          
+          <div class="mb-3">
+            <label><h6>ระบบแอร์</h6></label>
+            <select id="airConditionerSystem" class="browser-default" required class="validate">
+              <option value="" disabled selected>กรุณาเลือกชนิดแอร์</option>
+              <option value="ธรรมดา">ธรรมดา</option>
+              <option value="VRV">VRV</option>
+            </select>
           </div>
-          <div class="input-field">
-            <label for="quantity"><h6>จำนวนกี่เครื่อง</h6></label>
-            <input id="quantity" type="number" min="1" required class="validate"/>
+
+          <div class="mb-3">
+            <label><h6>ชนิดแอร์</h6></label>
+            <select id="airConditionerType" class="browser-default" required class="validate">
+              <option value="" disabled selected>กรุณาเลือกชนิดแอร์</option>
+              <option value="Wall Type">Wall Type</option>
+              <option value="Cassette Type">Cassette Type</option>
+              <option value="Ceiling Type">Ceiling Type</option>
+              <option value="Duct Type">Duct Type</option>
+              <option value="Floor Standing Duct Type">Floor Standing Duct Type</option>
+              <option value="CDU">CDU (เฉพาะVRV)</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <div class="input-field">
+              <label for="btu"><h6>ขนาด BTU</h6></label>
+              <input id="btu" type="text" required="" class="validate valid" value="">
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <div class="input-field">
+              <label for="quantity"><h6>จำนวนกี่เครื่อง</h6></label>
+              <input id="quantity" type="number" min="1" required class="validate"/>
+            </div>
           </div>
 
           <button id="btn" class="btn waves-effect waves-light" type="submit">
@@ -88,7 +95,6 @@
       <div id="result"></div>
       <!-- End Table Content -->
 
-
     </div>
     <!-- End Container -->
 
@@ -101,18 +107,17 @@
     <!-- Integrating the LIFF SDK -->
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 
-    <!-- Start Script For Get Form Values and Calculation -->
     <script>
     // Initialize LIFF
-      // liff
-      //   .init({ liffId: "1657806485-Nqw9K5mL" })
-      //   .then(() => {
-      //     runApp();
-      //   })
-      //   .catch((err) => {
-      //     console.error(err.code, error.message);
-      //   });
-      runApp();
+      liff
+        .init({ liffId: "1657806485-Nqw9K5mL" })
+        .then(() => {
+          runApp();
+        })
+        .catch((err) => {
+          console.error(err.code, error.message);
+        });
+
       // runApp();
       function runApp() {        
         let btu = new AutoNumeric("#btu", "integerPos");
@@ -126,8 +131,7 @@
           e.preventDefault();          
           let airConditionerType = document.getElementById("airConditionerType").value;
           // let btu                = document.getElementById("btu").value;
-          let quantity           = document.getElementById("quantity").value;
-
+          let quantity = document.getElementById("quantity").value;
 
           let btu = Number(getInputValue("btu").replace(/,/g, ""));
 
@@ -137,26 +141,25 @@
           let resultServiceRate = findServiceRate(airConditionerType, btu, quantity);
 
           // Sends messages on behalf of the user to the chat screen where the LIFF app is opened.
-          // if (liff.getContext().type !== "none" && liff.getContext().type !== "external") {
-            
+          if (liff.getContext().type !== "none" && liff.getContext().type !== "external") {
             // Create flex message
-            // let message = createFlexMessage(airConditionerType, btu, quantity, yearlyPrice, pricePerUnit, totalPrice);
+            let message = createFlexMessage(airConditionerType, btu, quantity, yearlyPrice, pricePerUnit, totalPrice);
 
             // Send messages
-          //   liff
-          //     .sendMessages(message)
-          //     .then(() => {
-          //       liff.closeWindow();
-          //     })
-          //     .catch((err) => {
-          //       console.error(err.code, error.message);
-          //     });
-          // } else {
-          //   // Result table in browser
-          // createResultTable(airConditionerType, btu, quantity, yearlyPrice, pricePerUnit, totalPrice);
-          // }
-        // }
-        createResultTable(airConditionerType, btu, quantity, yearlyPrice, pricePerUnit, totalPrice);
+            liff
+              .sendMessages(message)
+              .then(() => {
+                liff.closeWindow();
+              })
+              .catch((err) => {
+                console.error(err.code, error.message);
+              });
+          } else {
+            // Result table in browser
+          createResultTable(airConditionerType, btu, quantity, yearlyPrice, pricePerUnit, totalPrice);
+          }
+        }
+        // createResultTable(airConditionerType, btu, quantity, yearlyPrice, pricePerUnit, totalPrice);
       }
 
       // Function to get get form values
@@ -282,7 +285,7 @@
                   contents: [
                     {
                       type: "text",
-                      text: "P Auto 095-826-3339",
+                      text: "อัตราค่าบริการล้างแอร์",
                       size: "xl",
                       color: "#0551c2ff",
                       weight: "bold",
@@ -304,161 +307,7 @@
                       contents: [
                         {
                           type: "text",
-                          text: "ปีจดทะเบียนรถยนต์",
-                          size: "md",
-                          weight: "bold",
-                        },
-                      ],
-                      width: "150px",
-                    },
-                    {
-                      type: "box",
-                      layout: "vertical",
-                      contents: [
-                        {
-                          type: "text",
-                          text: `${carYearTxt}`,
-                          size: "md",
-                          weight: "bold",
-                          align: "end",
-                        },
-                      ],
-                    },
-                  ],
-                  margin: "lg",
-                },
-                {
-                  type: "box",
-                  layout: "horizontal",
-                  contents: [
-                    {
-                      type: "box",
-                      layout: "vertical",
-                      contents: [
-                        {
-                          type: "text",
-                          text: "ราคารถยนต์",
-                          size: "md",
-                          weight: "bold",
-                        },
-                      ],
-                      width: "100px",
-                    },
-                    {
-                      type: "box",
-                      layout: "vertical",
-                      contents: [
-                        {
-                          type: "text",
-                          text: `${carPriceTxt} บาท`,
-                          size: "md",
-                          weight: "bold",
-                          align: "end",
-                        },
-                      ],
-                    },
-                  ],
-                  margin: "lg",
-                },
-                {
-                  type: "box",
-                  layout: "horizontal",
-                  contents: [
-                    {
-                      type: "box",
-                      layout: "vertical",
-                      contents: [
-                        {
-                          type: "text",
-                          text: "เงินดาวน์",
-                          size: "md",
-                          weight: "bold",
-                        },
-                      ],
-                      width: "100px",
-                    },
-                    {
-                      type: "box",
-                      layout: "vertical",
-                      contents: [
-                        {
-                          type: "text",
-                          text: `${downPaymentTxt} บาท`,
-                          size: "md",
-                          weight: "bold",
-                          align: "end",
-                        },
-                      ],
-                    },
-                  ],
-                  margin: "lg",
-                },
-                {
-                  type: "box",
-                  layout: "horizontal",
-                  contents: [
-                    {
-                      type: "box",
-                      layout: "vertical",
-                      contents: [
-                        {
-                          type: "text",
-                          text: "ยอดจัด",
-                          size: "lg",
-                          weight: "bold",
-                        },
-                      ],
-                      width: "100px",
-                    },
-                    {
-                      type: "box",
-                      layout: "vertical",
-                      contents: [
-                        {
-                          type: "text",
-                          text: `${loanTxt} บาท`,
-                          size: "lg",
-                          weight: "bold",
-                          align: "end",
-                        },
-                      ],
-                    },
-                  ],
-                  margin: "lg",
-                },
-                {
-                  type: "separator",
-                  margin: "lg",
-                },
-                {
-                  type: "box",
-                  layout: "horizontal",
-                  contents: [
-                    {
-                      type: "box",
-                      layout: "vertical",
-                      contents: [
-                        {
-                          type: "text",
-                          text: "ค่างวด",
-                          size: "md",
-                        },
-                      ],
-                    },
-                  ],
-                  margin: "lg",
-                },
-                {
-                  type: "box",
-                  layout: "horizontal",
-                  contents: [
-                    {
-                      type: "box",
-                      layout: "vertical",
-                      contents: [
-                        {
-                          type: "text",
-                          text: `48 งวด (${interestRate48}%)`,
+                          text: "ชนิดแอร์",
                           size: "sm",
                         },
                       ],
@@ -470,7 +319,7 @@
                       contents: [
                         {
                           type: "text",
-                          text: `${installment48} บาท`,
+                          text: `${airConditionerType}`,
                           size: "sm",
                           align: "end",
                           weight: "bold",
@@ -489,7 +338,7 @@
                       contents: [
                         {
                           type: "text",
-                          text: `60 งวด (${interestRate60}%)`,
+                          text: "ขนาด BTU",
                           size: "sm",
                         },
                       ],
@@ -501,7 +350,7 @@
                       contents: [
                         {
                           type: "text",
-                          text: `${installment60} บาท`,
+                          text: `${numberToString(btu)} BTU`,
                           size: "sm",
                           align: "end",
                           weight: "bold",
@@ -520,7 +369,7 @@
                       contents: [
                         {
                           type: "text",
-                          text: `72 งวด (${interestRate72}%)`,
+                          text: "สัญญารายปี",
                           size: "sm",
                         },
                       ],
@@ -532,7 +381,7 @@
                       contents: [
                         {
                           type: "text",
-                          text: `${installment72} บาท`,
+                          text: `${numberToString(yearlyPrice)} บาท`,
                           size: "sm",
                           align: "end",
                           weight: "bold",
@@ -547,8 +396,7 @@
                 },
                 {
                   type: "text",
-                  text:
-                    "*ราคาค่างวดยังไม่รวม VAT\n*สำหรับพิจารณาข้อมูลเบื้องต้นไม่สามารถนำไปอ้างอิงในการซื้อขายได้",
+                  text: "หมายเหตุ",
                   size: "xxs",
                   weight: "bold",
                   margin: "lg",
@@ -568,14 +416,13 @@
                   action: {
                     type: "uri",
                     label: "สอบถามเพิ่มเติม",
-                    uri: "tel:0958263339",
+                    uri: "tel:0834464043",
                   },
                   style: "primary",
                 },
               ],
             },
           };
-
           return [{ type: "flex", altText: "คำนวณค่างวดรถ", contents: flexJson }];
       }
     </script>
