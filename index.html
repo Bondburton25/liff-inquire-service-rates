@@ -516,23 +516,60 @@
                   margin: "lg",
                 },
                 {
-                  type: "text",
-                  text: "หมายเหตุ",
-                  size: "xxs",
-                  weight: "bold",
-                  margin: "lg",
-                  align: "start",
-                  color: "#e8505b",
-                  wrap: true,
-                },
-                {
-                  "type": "text",
-                  "text": "1. ราคานี้สำหรับที่อยู่สูงจากพื้นไม่เกิน 4 เมตร หากเกินคิดเพิ่มเครื่องละ 500 บาท",
-                  "size": "xxs",
-                  "color": "#aaaaaa",
-                  "style": "normal",
-                  "wrap": true
-                },
+                  "type": "box",
+                  "layout": "vertical",
+                  "margin": "none",
+                  "contents": [
+                    {
+                      "type": "text",
+                      "text": "หมายเหตุ",
+                      "size": "xs",
+                      "flex": 12,
+                      "wrap": true,
+                      "color": "#aaaaaa"
+                    },
+                    {
+                      "type": "text",
+                      "text": "1. ราคานี้สำหรับที่อยู่สูงจากพื้นไม่เกิน 4 เมตร หากเกินคิดเพิ่มเครื่องละ 500 บาท",
+                      "size": "xxs",
+                      "color": "#aaaaaa",
+                      "style": "normal",
+                      "wrap": true
+                    },
+                    {
+                      "type": "text",
+                      "text": "2. เวลาในการทำงาน จันทร์-เสาร์ เวลา 08.00-17.00 น.",
+                      "size": "xxs",
+                      "color": "#aaaaaa",
+                      "style": "normal",
+                      "wrap": true
+                    },
+                    {
+                      "type": "text",
+                      "text": "3. ราคานี้เป็นค่าบริการล้างและตรวจเช็คเบื้องต้นเท่านั้น หากตรวจพบว่าอุปกรณ์ใดชำรุดเสียหาย จะแจ้งให้ลูกค้าทราบเพื่ออนุมัติก่อนทุกครั้ง",
+                      "size": "xxs",
+                      "color": "#aaaaaa",
+                      "style": "normal",
+                      "wrap": true
+                    },
+                    {
+                      "type": "text",
+                      "text": "4. รายครั้งรับประกันงานล้าง 30 วัน",
+                      "size": "xxs",
+                      "color": "#aaaaaa",
+                      "style": "normal",
+                      "wrap": true
+                    },
+                    {
+                      "type": "text",
+                      "text": "5. สัญญารายปีรับประกันงานล้าง 1 ปี",
+                      "size": "xxs",
+                      "color": "#aaaaaa",
+                      "style": "normal",
+                      "wrap": true
+                    }
+                  ]
+                }
               ],
               spacing: "md",
             },
