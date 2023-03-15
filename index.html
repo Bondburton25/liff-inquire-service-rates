@@ -77,12 +77,28 @@
             </div>
           </div>
 
+          <div class="mb-3 d-none">
+            <p>
+              <label>
+                <input type="checkbox" id="yearlyContract" value="1"/>
+                <span>สัญญารายปี</span>
+              </label>
+            </p>
+          </div>
+
           <button id="btn" class="btn waves-effect waves-light" type="submit">
             สอบถามค่าบริการ
           </button>
         </form>
       </div>
+      <!-- End Form Content -->
+
+
+
+      <!-- Start Table Content -->
       <div id="result"></div>
+      <!-- End Table Content -->
+
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/autonumeric@4.1.0"></script>
@@ -120,23 +136,24 @@
           let resultServiceRate = findServiceRate(airConditionerType, btu, quantity);
 
           // Sends messages on behalf of the user to the chat screen where the LIFF app is opened.
-          if (liff.getContext().type !== "none" && liff.getContext().type !== "external") {
-            // Create flex message
-            let message = createFlexMessage(airConditionerType, btu, quantity, yearlyPrice, pricePerUnit, totalPrice);
-            // Send messages
-            liff
-              .sendMessages(message)
-              .then(() => {
-                liff.closeWindow();
-              })
-              .catch((err) => {
-                console.error(err.code, error.message);
-              });
-          } else {
-            // Result table in browser
-          createResultTable(airConditionerType, btu, quantity, yearlyPrice, pricePerUnit, totalPrice);
-          }
-          // createResultTable(airConditionerType, btu, quantity, yearlyPrice, pricePerUnit, totalPrice, totalPriceYearly);
+          // if (liff.getContext().type !== "none" && liff.getContext().type !== "external") {
+          //   // Create flex message
+          //   let message = createFlexMessage(airConditionerType, btu, quantity, yearlyPrice, pricePerUnit, totalPrice);
+
+          //   // Send messages
+          //   liff
+          //     .sendMessages(message)
+          //     .then(() => {
+          //       liff.closeWindow();
+          //     })
+          //     .catch((err) => {
+          //       console.error(err.code, error.message);
+          //     });
+          // } else {
+          //   // Result table in browser
+          // createResultTable(airConditionerType, btu, quantity, yearlyPrice, pricePerUnit, totalPrice);
+          // }
+          createResultTable(airConditionerType, btu, quantity, yearlyPrice, pricePerUnit, totalPrice, totalPriceYearly);
         }
       }
 
@@ -270,11 +287,11 @@
         <div class="col-12">
           <p class="text-danger small">หมายเหตุ</p>
           <ol class="text-danger small">
-            <li>ราคานี้สาหรับแอร์ที่อยู่สูงจากพื้นไม่เกิน 4 เมตร ถ้าเกิน 3 เมตร คิดเพิ่ม เครื่องละ 500 บาท</li>
-            <li>สาหรับแอร์ที่อยู่สูงเกิน 3 เมตร ยังไม่รวมค่าตั้งนั่งร้าน ซึ่งต้องประเมินราคาตามสภาพหน้างานจริง โดยมีค่าตั้งนั่งร้านเริ่มต้นราคา 1,500 บาทต่อครั้ง</li>
-            <li>ราคานี้เป็นราคาสาหรับการทางาน ในวันจันทร์ - เสาร์ เวลา 08 : 00 - 17:00 น.</li>
-            <li>ราคานี้เป็นราคาเฉพาะค่าบริการล้างและตรวจเช็คเครื่องปรับอากาศเท่านั้น ไม่รวมค่าอุปกรณ์อื่นที่ตรวจพบว่าชารุดหรือเสียหาย โดยถ้าหากตรวจพบอุปกรณ์ใดชารุดหรือเสียหาย จะต้องมีการเสนอราคาและได้รับการอนุมัติจากลูกค้าก่อนทุกครั้ง</li>
-            <li>รายครั้งรับประกันงานล้าง 30 วัน สัญญารายปีรับประกันงานล้าง 1 ปี</li>
+            <li>ราคานี้สำหรับที่อยู่สูงจากพื้นไม่เกิน 4 เมตร หากเกินคิดเพิ่มเครื่องละ 500 บาท </li>
+            <li>เวลาในการทำงาน จันทร์-เสาร์ เวลา 08.00-17.00 น.</li>
+            <li>ราคานี้เป็นค่าบริการล้างและตรวจเช็คเบื้องต้นเท่านั้น หากตรวจพบว่าอุปกรณ์ใดชำรุดเสียหาย จะแจ้งให้ลูกค้าทราบเพื่ออนุมัติก่อนทุกครั้ง </li>
+            <li>รายครั้งรับประกันงานล้าง 30 วัน</li>
+            <li>สัญญารายปีรับประกันงานล้าง 1 ปี</li>
           </ol>
         </div>
       </div>`;
@@ -499,60 +516,15 @@
                   margin: "lg",
                 },
                 {
-                "type": "box",
-                "layout": "vertical",
-                "margin": "none",
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": "หมายเหตุ",
-                    "size": "xs",
-                    "flex": 12,
-                    "wrap": true,
-                    "color": "#aaaaaa"
-                  },
-                  {
-                    "type": "text",
-                    "text": "1. ราคานี้สำหรับที่อยู่สูงจากพื้นไม่เกิน 4 เมตร หากเกินคิดเพิ่มเครื่องละ 500 บาท",
-                    "size": "xxs",
-                    "color": "#aaaaaa",
-                    "style": "normal",
-                    "wrap": true
-                  },
-                  {
-                    "type": "text",
-                    "text": "2. เวลาในการทำงาน จันทร์-เสาร์ เวลา 08.00-17.00 น.",
-                    "size": "xxs",
-                    "color": "#aaaaaa",
-                    "style": "normal",
-                    "wrap": true
-                  },
-                  {
-                    "type": "text",
-                    "text": "3. ราคานี้เป็นค่าบริการล้างและตรวจเช็คเบื้องต้นเท่านั้น หากตรวจพบว่าอุปกรณ์ใดชำรุดเสียหาย จะแจ้งให้ลูกค้าทราบเพื่ออนุมัติก่อนทุกครั้ง",
-                    "size": "xxs",
-                    "color": "#aaaaaa",
-                    "style": "normal",
-                    "wrap": true
-                  },
-                  {
-                    "type": "text",
-                    "text": "4. รายครั้งรับประกันงานล้าง 30 วัน",
-                    "size": "xxs",
-                    "color": "#aaaaaa",
-                    "style": "normal",
-                    "wrap": true
-                  },
-                  {
-                    "type": "text",
-                    "text": "5. สัญญารายปีรับประกันงานล้าง 1 ปี",
-                    "size": "xxs",
-                    "color": "#aaaaaa",
-                    "style": "normal",
-                    "wrap": true
-                  }
-                ]
-              }
+                  type: "text",
+                  text: "ราคานี้สาหรับแอร์ที่อยู่สูงจากพื้นไม่เกิน 3 เมตร ถ้าเกิน 3 เมตร คิดเพิ่ม เครื่องละ 500 บาท สาหรับแอร์ที่อยู่สูงเกิน 3 เมตร ยังไม่รวมค่าตั้งนั่งร้าน ซึ่งต้องประเมินราคาตามสภาพหน้างานจริง โดยมีค่าตั้งนั่งร้านเริ่มต้นราคา 1,500 บาทต่อครั้ง ราคานี้เป็นราคาสาหรับการทางาน ในวันจันทร์ - เสาร์ เวลา 08 : 00 - 17:00 น. ราคานี้เป็นราคาเฉพาะค่าบริการล้างและตรวจเช็คเครื่องปรับอากาศเท่านั้น ไม่รวมค่าอุปกรณ์อื่นที่ตรวจพบว่าชารุดหรือเสียหาย โดยถ้าหากตรวจพบอุปกรณ์ใดชารุดหรือเสียหาย จะต้องมีการเสนอราคาและได้รับการอนุมัติจากลูกค้าก่อนทุกครั้ง รายครั้งรับประกันงานล้าง 30 วัน สัญญารายปีรับประกันงานล้าง 1 ปี",
+                  size: "xxs",
+                  weight: "bold",
+                  margin: "lg",
+                  align: "start",
+                  color: "#e8505b",
+                  wrap: true,
+                },
               ],
               spacing: "md",
             },
@@ -572,7 +544,7 @@
               ],
             },
           };
-          return [{ type: "flex", altText: "คำนวณค่างวดรถ", contents: flexJson }];
+          return [{ type: "flex", altText: "อัตราค่าบริการล้างแอร์", contents: flexJson }];
       }
     </script>
   </body>
