@@ -125,10 +125,11 @@
               .catch((err) => {
                 console.error(err.code, error.message);
               });
-          } else {
-            // Result table in browser
-          createResultTable(airConditionerType, btu, quantity, yearlyPrice, pricePerUnit, totalPrice);
-          }
+          } 
+          // else {
+          //   // Result table in browser
+          //  createResultTable(airConditionerType, btu, quantity, yearlyPrice, pricePerUnit, totalPrice);
+          // }
           // createResultTable(airConditionerType, btu, quantity, yearlyPrice, pricePerUnit, totalPrice, totalPriceYearly);
         }
       }
@@ -149,26 +150,6 @@
             }
             yearlyPrice = 450;
             break;
-          case 'Ceiling Type':
-            // BTU 48,000 up  
-            if(btu >= 48000) {
-              quantity >= 10 ? pricePerUnit = 1000 : pricePerUnit = 1500
-              yearlyPrice = null;
-            // BTU 18,000 - 24,000
-            } else if(btu >= 18000) {
-              quantity >= 10 ? pricePerUnit = 600 : pricePerUnit = 700
-              yearlyPrice = 500;
-            } 
-            else if(btu >= 18000) {
-              quantity >= 10 ? pricePerUnit = 600 : pricePerUnit = 700
-              yearlyPrice = 500;
-            }
-            // BTU 9,000 - 12,000
-            else {
-              quantity >= 10 ? pricePerUnit = 500 : pricePerUnit = 600
-              yearlyPrice = 450;
-            }
-            break;
           case 'Duct Type':
             quantity >= 10 ? pricePerUnit = 1000 : pricePerUnit = 1200
             yearlyPrice = 900;
@@ -181,12 +162,12 @@
             quantity >= 10 ? pricePerUnit = 600 : pricePerUnit = 800
             yearlyPrice = 500;
             break;
-          // Cassette Type and Ceiling are the same rates
+          // Cassette Type and Ceiling are the same rates for all BTU
           default:
             quantity >= 10 ? pricePerUnit = 900 : pricePerUnit = 1000
             yearlyPrice = 750;
         }
-        totalPrice = quantity * pricePerUnit;
+        totalPrice       = quantity * pricePerUnit;
         totalPriceYearly = quantity * yearlyPrice;
       }
 
@@ -199,65 +180,65 @@
       }
 
       // Create result table
-      function createResultTable(airConditionerType, btu, quantity, yearlyPrice, pricePerUnit, totalPrice, totalPriceYearly) {
-        quantity >= 10 ? yearlyContent = '' : yearlyContent = 'd-none';
-        quantity >= 10 ? priceLabel = ' 10 เครื่องขึ้นไป' : priceLabel = '/เครื่อง'
-        document.getElementById("result").innerHTML = `<div class="row mt-5">
-        <div class="col-sm-4 col-12">
-          <h6>อัตราค่าบริการล้างแอร์</h6>
-          <div class="card border-0">
-            <div class="card-body">
-              <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between border-0 lh-sm">
-                  <div class="title">ระบบแอร์</div>
-                  ธรรมดา
-                </li>
-                <li class="list-group-item d-flex justify-content-between border-0 lh-sm">
-                  <div class="title">ชนิดแอร์</div>
-                  ${airConditionerType}
-                </li>
-                <li class="list-group-item d-flex justify-content-between border-0 lh-sm">
-                  <div class="title">ขนาด BTU</div>
-                  ${numberToString(btu)}
-                </li>
-                <li class="list-group-item d-flex justify-content-between border-0">
-                  <div class="title">จำนวนเครื่อง</div>
-                  ${quantity}
-                </li>
-                <li class="list-group-item d-flex justify-content-between border-0">
-                  <div class="title">ราคารายครั้ง${priceLabel}</div>
-                  <span>฿${numberToString(pricePerUnit)}</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between border-0 ${yearlyContent}">
-                  <div class="title">สัญญารายปี/เครื่อง</div>
-                  ฿${yearlyPrice}
-                </li>
-                <li class="list-group-item d-flex justify-content-between border-0 text-danger bg-light">
-                  <span>ราคารวม</span>
-                  <strong>฿${numberToString(totalPrice)}</strong>
-                </li>
-                <li class="list-group-item d-flex justify-content-between border-0 text-danger bg-light ${yearlyContent}">
-                  <span>ราคารวมสัญญารายปี</span>
-                  <strong>฿${numberToString(totalPriceYearly)}</strong>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <p class="text-danger small">หมายเหตุ</p>
-          <ol class="text-danger small">
-            <li>ราคานี้สำหรับที่อยู่สูงจากพื้นไม่เกิน 4 เมตร หากเกินคิดเพิ่มเครื่องละ 500 บาท </li>
-            <li>เวลาในการทำงาน จันทร์-เสาร์ เวลา 08.00-17.00 น.</li>
-            <li>ราคานี้เป็นค่าบริการล้างและตรวจเช็คเบื้องต้นเท่านั้น หากตรวจพบว่าอุปกรณ์ใดชำรุดเสียหาย จะแจ้งให้ลูกค้าทราบเพื่ออนุมัติก่อนทุกครั้ง </li>
-            <li>รายครั้งรับประกันงานล้าง 30 วัน</li>
-            <li>สัญญารายปีรับประกันงานล้าง 1 ปี</li>
-          </ol>
-        </div>
-      </div>`;
-    }
+    //   function createResultTable(airConditionerType, btu, quantity, yearlyPrice, pricePerUnit, totalPrice, totalPriceYearly) {
+    //     quantity >= 10 ? yearlyContent = '' : yearlyContent = 'd-none';
+    //     quantity >= 10 ? priceLabel = ' 10 เครื่องขึ้นไป' : priceLabel = '/เครื่อง'
+    //     document.getElementById("result").innerHTML = `<div class="row mt-5">
+    //     <div class="col-sm-4 col-12">
+    //       <h6>อัตราค่าบริการล้างแอร์</h6>
+    //       <div class="card border-0">
+    //         <div class="card-body">
+    //           <ul class="list-group">
+    //             <li class="list-group-item d-flex justify-content-between border-0 lh-sm">
+    //               <div class="title">ระบบแอร์</div>
+    //               ธรรมดา
+    //             </li>
+    //             <li class="list-group-item d-flex justify-content-between border-0 lh-sm">
+    //               <div class="title">ชนิดแอร์</div>
+    //               ${airConditionerType}
+    //             </li>
+    //             <li class="list-group-item d-flex justify-content-between border-0 lh-sm">
+    //               <div class="title">ขนาด BTU</div>
+    //               ${numberToString(btu)}
+    //             </li>
+    //             <li class="list-group-item d-flex justify-content-between border-0">
+    //               <div class="title">จำนวนเครื่อง</div>
+    //               ${quantity}
+    //             </li>
+    //             <li class="list-group-item d-flex justify-content-between border-0">
+    //               <div class="title">ราคารายครั้ง${priceLabel}</div>
+    //               <span>฿${numberToString(pricePerUnit)}</span>
+    //             </li>
+    //             <li class="list-group-item d-flex justify-content-between border-0 ${yearlyContent}">
+    //               <div class="title">สัญญารายปี/เครื่อง</div>
+    //               ฿${yearlyPrice}
+    //             </li>
+    //             <li class="list-group-item d-flex justify-content-between border-0 text-danger bg-light">
+    //               <span>ราคารวม</span>
+    //               <strong>฿${numberToString(totalPrice)}</strong>
+    //             </li>
+    //             <li class="list-group-item d-flex justify-content-between border-0 text-danger bg-light ${yearlyContent}">
+    //               <span>ราคารวมสัญญารายปี</span>
+    //               <strong>฿${numberToString(totalPriceYearly)}</strong>
+    //             </li>
+    //           </ul>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
+    //   <div class="row">
+    //     <div class="col-12">
+    //       <p class="text-danger small">หมายเหตุ</p>
+    //       <ol class="text-danger small">
+    //         <li>ราคานี้สำหรับที่อยู่สูงจากพื้นไม่เกิน 4 เมตร หากเกินคิดเพิ่มเครื่องละ 500 บาท </li>
+    //         <li>เวลาในการทำงาน จันทร์-เสาร์ เวลา 08.00-17.00 น.</li>
+    //         <li>ราคานี้เป็นค่าบริการล้างและตรวจเช็คเบื้องต้นเท่านั้น หากตรวจพบว่าอุปกรณ์ใดชำรุดเสียหาย จะแจ้งให้ลูกค้าทราบเพื่ออนุมัติก่อนทุกครั้ง </li>
+    //         <li>รายครั้งรับประกันงานล้าง 30 วัน</li>
+    //         <li>สัญญารายปีรับประกันงานล้าง 1 ปี</li>
+    //       </ol>
+    //     </div>
+    //   </div>`;
+    // }
 
       // Creat flex message
       function createFlexMessage(airConditionerType, btu, quantity, yearlyPrice, pricePerUnit, totalPrice) {
